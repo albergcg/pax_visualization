@@ -1,7 +1,7 @@
-# Visualizaci髇 de datos: PEC2 -------------------------------------------------
-# Anexo: C骴igo desarrollado para llevar a cabo la exploraci髇 de datos --------
+# Visualizaci贸n de datos: PEC2 -------------------------------------------------
+# Anexo: C贸digo desarrollado para llevar a cabo la exploraci贸n de datos --------
 
-# Librer韆s --------------------------------------------------------------------
+# Librer铆as --------------------------------------------------------------------
 library(tidyverse)
 library(readxl)
 library(lubridate)
@@ -9,7 +9,7 @@ library(FactoMineR)
 library(factoextra)
 
 # Lectura ----------------------------------------------------------------------
-pax <- read_excel('../datasets/pax_all_agreements_data.xlsx')
+pax <- read_excel('datasets/pax_all_agreements_data.xlsx')
 pax %>% dim()
 
 # Preprocesado de variables ---------------------------------------------------
@@ -17,11 +17,9 @@ pax <- pax %>%
   mutate(Dat = ymd(Dat)) %>%
   mutate(pax_year = year(Dat))
 
-write_excel_csv2(pax, file = "../datasets/pax_preprocessed.csv")
+# Taxonom铆a de tratados --------------------------------------------------------
 
-# Taxonom韆 de tratados --------------------------------------------------------
-
-## Geograf韆
+## Geograf铆a
 pax %>%
   select(Reg) %>%
   table()
@@ -31,7 +29,7 @@ ggplot(data = pax) +
   geom_bar(fill = "steelblue") +
   theme(axis.text.x = element_text(angle = 90))
 
-## Tipolog韆 de conficto
+## Tipolog铆a de conficto
 pax %>%
   select(Contp) %>%
   table()
@@ -41,7 +39,7 @@ ggplot(data = pax) +
   geom_bar(fill = "steelblue") +
   theme(axis.text.x = element_text(angle = 90))
 
-## Distribuci髇 conjunta
+## Distribuci贸n conjunta
 ggplot(data = pax) +
   aes(x = Reg, fill = Contp) +
   geom_bar(position = "fill")
@@ -56,7 +54,7 @@ ggplot(data = pax) +
   geom_bar(fill = "steelblue")
 
 
-# Evoluci髇 temporal -----------------------------------------------------------
+# Evoluci贸n temporal -----------------------------------------------------------
 pax_by_year <- pax %>%
   group_by(pax_year) %>%
   summarise(agreements = n())  
@@ -66,7 +64,7 @@ ggplot(pax_by_year) +
   geom_line(color = "steelblue") +
   geom_point(size = 2)
 
-# An醠isis de correspondencias
+# An谩lisis de correspondencias
 correspondence_data <- pax %>%
   select(Contp, Reg, GeWom) %>%
   mutate_all(factor)
