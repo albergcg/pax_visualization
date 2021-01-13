@@ -1,7 +1,7 @@
-# Visualización de datos: PEC4 -------------------------------------------------
-# Anexo: Código desarrollado para el AFC y Clustering de acuerdos --------------
+# VisualizaciÃ³n de datos: PEC4 -------------------------------------------------
+# Anexo: CÃ³digo desarrollado para el AFC y Clustering de acuerdos --------------
 
-# Librerías --------------------------------------------------------------------
+# LibrerÃ­as --------------------------------------------------------------------
 library(tidyverse)
 library(readxl)
 library(writexl)
@@ -12,7 +12,7 @@ library(ggrepel)
 library(dendextend)
 
 # Lectura ----------------------------------------------------------------------
-pax <- read_excel('../../datasets/pax_subset.xlsx')
+pax <- read_excel('datasets/pax_subset.xlsx')
 pax %>% dim()
 
 # Clustering ordinal -----------------------------------------------------------
@@ -39,7 +39,7 @@ groups <- cutree(clustering, k = 3)
 pax$cluster <- groups
 write_xlsx(pax, "../../datasets/pax_groups.xlsx")
 
-# Análisis Factorial de Correspondencias----------------------------------------
+# AnÃ¡lisis Factorial de Correspondencias----------------------------------------
 study_vars <- pax %>%
   select(GRef, GRa, GCh) %>%
   mutate_all(factor) %>%
